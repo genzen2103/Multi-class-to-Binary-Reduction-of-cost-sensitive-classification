@@ -27,7 +27,7 @@ if __name__=="__main__":
 
 	print "Digits dataset loaded"
 	
-	X_train, X_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.80, random_state=21)
+	X_train, X_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.99, random_state=21)
 	
 	K,Features,labels,wts=len(dataset.target_names),[],[],[]
 

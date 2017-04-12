@@ -2,8 +2,7 @@ import numpy as np
 from sklearn.model_selection import cross_val_score
 from simple_perceptron_classifier import Simple_Perceptron 
 from voted_perceptron_classifier import Voted_Perceptron 
-from kernel_perceptron_classifier import Kernel_Perceptron
-from sklearn.gaussian_process.kernels import RBF
+from kernel_perceptron_classifier import Kernel_Perceptron,gaussian_kernel
 
 class Binary_Classifier:
 	def __init__(self,input_vectors,labels,wts,epoch,kcv):
@@ -17,19 +16,18 @@ class Binary_Classifier:
 		#Voted
 		#bcf = Voted_Perceptron()
 		#bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
-
+		# scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts})
+		# self.accuracy=scores.mean()
+		
 		##Simple
-		bcf = Simple_Perceptron()
-		bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
+		# bcf = Simple_Perceptron()
+		# bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
+		# scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts})
+		# self.accuracy=scores.mean()
 
 		#Kernel
-		# rbf_feature = RBF(0, length_scale_bounds="fixed")
-		# bcf=Kernel_Perceptron(rbf_feature, T=len(input_vectors[0]) )
-		# bcf.fit(input_vectors,labels,weights=wts)
-
-		scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts})
-		#print("Accuracy: %f" % (scores.mean()))
-		self.accuracy=scores.mean()
+		bcf=Kernel_Perceptron(kernel=gaussian_kernel,T=epoch )
+		bcf.fit(input_vectors,labels,weights=wts,sigma=5.0)
 		self.classes=classes
 		self.bcf=bcf
 

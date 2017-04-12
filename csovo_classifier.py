@@ -21,9 +21,9 @@ class CSOVO_Classifier(BaseEstimator):
 							C.append(features[k])
 							y.append(labels[k])
 							w.append(fit_params['weights'][k])
-					#print "Classifier",i,j
+					print "Training Classifier",i,j
 					clf =  Binary_Classifier(np.array(C),np.array(y),np.array(w),fit_params['epochs'],fit_params['cross_val_fold'])
-					print "Classifier(%d,%d) Accuracy: %f"%(clf.classes[0],clf.classes[1],clf.accuracy)
+					#print "Classifier(%d,%d) Accuracy: %f"%(clf.classes[0],clf.classes[1],clf.accuracy)
 					self.classifier_list.append(clf)
 
 	def predict(self,input_samples):

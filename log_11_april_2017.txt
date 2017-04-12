@@ -1,0 +1,6 @@
+Simple perceptron with Actual Samples = 359,Weighted Samples = 16155 , epochs=25 , cross_val_fold=10 
+CSOVO Accuracy: 0.198887
+
+
+
+

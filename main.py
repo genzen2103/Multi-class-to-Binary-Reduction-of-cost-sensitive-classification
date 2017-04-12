@@ -16,7 +16,7 @@ def costToWeight(X,Y,C):
 					ll.append(i)
 				else:
 					ll.append(j)
-				wl.append(abs(C[i]-C[j]))
+				wl.append( abs(C[i]-C[j]) )
 	return [xl,ll,wl]
 
 
@@ -27,7 +27,7 @@ if __name__=="__main__":
 
 	print "Digits dataset loaded"
 	
-	X_train, X_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.25, random_state=21)
+	X_train, X_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.80, random_state=21)
 	
 	K,Features,labels,wts=len(dataset.target_names),[],[],[]
 
@@ -36,6 +36,10 @@ if __name__=="__main__":
 	filename='csovo_model.pkl'
 
 	clf_obj = CSOVO_Classifier('Simple_Perceptron')
+
+	#Un comment when testing
+	# if os.path.isfile(filename):
+	# 	os.remove(filename)
 
 	if os.path.isfile(filename):
 		clf_obj.load(filename)
@@ -55,7 +59,7 @@ if __name__=="__main__":
 
 		print "Training Phase: Samples",len(labels)
 
-		clf_obj.fit(Features,labels,weights=wts,numclass=K,epochs=25,cross_val_fold=10)
+		clf_obj.fit(Features,labels,weights=wts,numclass=K,epochs=1,cross_val_fold=2)
 
 		clf_obj.save(filename)
 
@@ -63,7 +67,6 @@ if __name__=="__main__":
 
 
 	pred_labels=clf_obj.predict(X_test)
-
 
 	print "\nCSOVO Accuracy: %f"%(sum([1 if pred_labels[i]==y_test[i] else 0 for i in range(len(pred_labels))] )/float(len(pred_labels)) )
 

@@ -3,6 +3,8 @@ from sklearn.base import BaseEstimator
 from binary_classifier import Binary_Classifier 
 from collections import Counter
 import cPickle
+from multiprocessing import Pool
+
 
 class CSOVO_Classifier(BaseEstimator):
 	def __init__(self,clf_type):
@@ -28,6 +30,7 @@ class CSOVO_Classifier(BaseEstimator):
 		preds=[]
 		for clf in self.classifier_list:
 			res = clf.bcf.predict(input_samples)
+			print "Classifier(%d,%d) Prediction done"%(clf.classes[0],clf.classes[1])
 			map_res=[clf.classes[0] if res[i]==1 else clf.classes[1] for i in range(len(res)) ]
 			preds.append(map_res)
 

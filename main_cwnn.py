@@ -16,7 +16,17 @@ if __name__=="__main__":
 		
 	K,Features,labels,wts=len(dataset.target_names),[],[],[]
 
-	cost_matrix = [ [ float( abs(i-j) ) for j in xrange(K) ] for i in xrange(K) ]
+	temp = [ y_train[i] for i in xrange(len(y_train))]
+
+	#cost_matrix = [ [ float( abs(i-j) ) for j in xrange(K) ] for i in xrange(K) ]
+	cost_matrix = [ [ np.random.uniform( 0.0,2000.00 * ( temp.count(j)/float( temp.count(i) ) ) ) for j in xrange(K) ] for i in xrange(K) ]
+	for i in range(K):
+		cost_matrix[i][i]=0.0
+	
+	#print cost_matrix
+	cost_matrix=[ [ cost_matrix[i][j]/200.0 for i in range(K) ] for j in range(K) ]
+	#print cost_matrix
+
 
 	sample_costs=[ [ cost_matrix[ y_train[i] ][j]  for j in xrange(K) ] for i in xrange(len(y_train)) ]
 

@@ -15,11 +15,15 @@ if __name__=="__main__":
 	
 	K=len(dataset.target_names)
 
-	cost_matrix = [ [ float( abs(i-j) ) for j in xrange(K) ] for i in xrange(K) ]
-	# cost_matrix = np.random.random((K,K))*10.0
-	# cost_matrix = (cost_matrix + cost_matrix.T)*0.5s
-	# for i in range(K):
-	# 	cost_matrix[i][i]=0.0
+	temp = [ y_train[i] for i in xrange(len(y_train))]
+
+	#cost_matrix = [ [ float( abs(i-j) ) for j in xrange(K) ] for i in xrange(K) ]
+	cost_matrix = [ [ np.random.uniform( 0.0,2000.00 * ( temp.count(j)/float( temp.count(i) ) ) ) for j in xrange(K) ] for i in xrange(K) ]
+	for i in range(K):
+		cost_matrix[i][i]=0.0
+
+
+	#cost_matrix = (cost_matrix + cost_matrix.T)*0.5
 
 	filename='csovo_model.pkl'
 

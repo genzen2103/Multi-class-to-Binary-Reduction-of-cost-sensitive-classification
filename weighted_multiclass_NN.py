@@ -79,9 +79,9 @@ class Weighted_FeedForward_MultiClass_NN:
 					states.append(current_features)
 
 
-				error = ((current_ops-current_features)*current_wts)/10.0
+				error = (current_ops-current_features)
 
-				if (e%500	==0 and b==0):
+				if (e%500==0 and b==0):
 					print "Epoch %d : Error=%f" %( e, np.mean(np.abs(error)) )
 
 				if ( np.mean(np.abs(error)) <= fit_params['tolerance'] ):

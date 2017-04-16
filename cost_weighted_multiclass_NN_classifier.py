@@ -3,6 +3,13 @@ import numpy as np
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_digits
+from sklearn.preprocessing  import normalize
+
+
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
 
 
 def costToWeight(X,Y,C):
@@ -31,8 +38,6 @@ if __name__=="__main__":
 		
 	K,Features,labels,wts=len(dataset.target_names),[],[],[]
 
-	print X_train.shape
-
 	for i in range(len(y_train)):
 		cost=[]
 		for j in range(K):
@@ -42,10 +47,11 @@ if __name__=="__main__":
 		labels.extend(l)
 		wts.extend(w)
 
+	Features=np.matrix(Features)
 
 	np.random.seed(1)
 
-	n,d = X_train.shape
+	n,d = Features.shape
 	c=1
 
 	print "Samples:",n
@@ -66,11 +72,13 @@ if __name__=="__main__":
 
 		#print "Training Phase"
 
-		clf.fit(np.matrix(Features),np.matrix([[i] for i in labels]),epochs=6000,batch_size=20,tolerance=0.0001,learning_rate=0.0001,weights=np.matrix( [ [i] for i in wts] ) )
+		clf.fit(Features,np.matrix([[i] for i in labels]),epochs=1000,batch_size=50,tolerance=0.001,learning_rate=0.001,weights=np.matrix( [ [i] for i in wts] ) )
 
 		print "Testing Phase"
 
 		preds = clf.predict(X_test)
+		preds = normalize([float(i) for i in])
+
 			
 		sr= sum([1 if preds[i]==y_test[i] else 0 for i in range(len(preds))])/float( len(preds))
 
@@ -78,8 +86,8 @@ if __name__=="__main__":
 
 		Accs.append(sr)
 
-	plt.plot(range(5,20,1),Accs)
-	plt.show()
+	# plt.plot(range(5,20,1),Accs)
+	# plt.show()
 
 
 

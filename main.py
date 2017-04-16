@@ -4,6 +4,12 @@ from sklearn.model_selection import train_test_split
 from csovo_classifier import CSOVO_Classifier
 import os.path
 
+def argmin(i,j,Ci,Cj):
+    if Ci<Cj:
+        return i;
+    else:
+        return j; 
+
 def integration_param(minm, C_i, C):
     Range = np.arange(minm, C_i, 0.2)
     sum = 0
@@ -30,7 +36,7 @@ def weightedAllPairs(X, Y, C):
             if(j > i):
                 minm = min(C)
                 xList.append(X)
-                labelList.append(np.argmin([C[i],C[j]]))
+                labelList.append(argmin(i,j,C[i],C[j]))
                 weightList.append(abs(integration_param(minm, C[i], C) - integration_param(minm, C[j], C)))
 
     return [xList, labelList, weightList]

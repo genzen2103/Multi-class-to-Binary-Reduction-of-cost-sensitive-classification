@@ -4,6 +4,38 @@ from sklearn.model_selection import train_test_split
 from csovo_classifier import CSOVO_Classifier
 import os.path
 
+def integration_param(minm, C_i, C):
+    Range = np.arange(minm, C_i, 0.2)
+    sum = 0
+
+    for t in Range:
+        count = 0
+
+        for c in C:
+            if c <= t:
+                count += 1
+
+        sum += 1.0/count
+    return sum
+
+def weightedAllPairs(X, Y, C):
+    noOfClasses = len(C)
+    returnList = []
+    xList, labelList, weightList = [], [], []
+
+    for i in range(noOfClasses):
+
+        for j in range(noOfClasses):
+
+            if(j > i):
+                minm = min(C)
+                xList.append(X)
+                labelList.append(np.argmin([C[i],C[j]]))
+                weightList.append(abs(integration_param(minm, C[i], C) - integration_param(minm, C[j], C)))
+
+    return [xList, labelList, weightList]
+
+
 def costToWeight(X,Y,C):
 	#print C
 	k,xl,ll,wl=len(C),[],[],[]

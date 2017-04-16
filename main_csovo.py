@@ -16,14 +16,18 @@ if __name__=="__main__":
 	K=len(dataset.target_names)
 
 	cost_matrix = [ [ float( abs(i-j) ) for j in xrange(K) ] for i in xrange(K) ]
+	# cost_matrix = np.random.random((K,K))*10.0
+	# cost_matrix = (cost_matrix + cost_matrix.T)*0.5s
+	# for i in range(K):
+	# 	cost_matrix[i][i]=0.0
 
 	filename='csovo_model.pkl'
 
 	clf_obj = CSOVO_Classifier('Simple_Perceptron')
 
 	#Un comment when testing
-	# if os.path.isfile(filename):
-	# 	os.remove(filename)
+	if os.path.isfile(filename):
+		os.remove(filename)
 
 	if os.path.isfile(filename):
 		clf_obj.load(filename)

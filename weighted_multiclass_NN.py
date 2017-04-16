@@ -46,7 +46,7 @@ class Weighted_FeedForward_MultiClass_NN:
 	def fit(self,features,outputs,**fit_params):
 		''' Trains the NN using training samples expects epochs and batch size as added inputs'''
 		n,d=features.shape
-		print n,d,outputs.shape,fit_params['weights'].shape
+		print features.shape,outputs.shape,fit_params['weights'].shape
 		cost_wts=fit_params['weights']
 		#errors=[]
 		for e in xrange( fit_params['epochs'] ):
@@ -79,9 +79,9 @@ class Weighted_FeedForward_MultiClass_NN:
 					states.append(current_features)
 
 
-				error = (current_ops-current_features)
+				error = (current_ops-current_features) * current_wts
 
-				if (e%500==0 and b==0):
+				if (e%100==0 and b==0):
 					print "Epoch %d : Error=%f" %( e, np.mean(np.abs(error)) )
 
 				if ( np.mean(np.abs(error)) <= fit_params['tolerance'] ):

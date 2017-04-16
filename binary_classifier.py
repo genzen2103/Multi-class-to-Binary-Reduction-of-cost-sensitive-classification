@@ -19,15 +19,16 @@ class Binary_Classifier:
 		# scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts})
 		# self.accuracy=scores.mean()
 		
-		##Simple
-		# bcf = Simple_Perceptron()
-		# bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
-		# scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts})
-		# self.accuracy=scores.mean()
+		#Simple
+		bcf = Simple_Perceptron()
+		bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
+		scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts,"ndim":data_dim,"epochs":epoch})
+		self.accuracy=scores.mean()
 
 		#Kernel
-		bcf=Kernel_Perceptron(kernel=gaussian_kernel,T=epoch )
-		bcf.fit(input_vectors,labels,weights=wts,sigma=5.0)
+		# bcf=Kernel_Perceptron(kernel=gaussian_kernel,T=epoch )
+		# bcf.fit(input_vectors,labels,weights=wts,sigma=5.0)
 		self.classes=classes
 		self.bcf=bcf
+
 

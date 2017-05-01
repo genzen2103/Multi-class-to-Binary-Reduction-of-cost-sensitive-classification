@@ -1,7 +1,10 @@
 import numpy as np 
 from sklearn.datasets import load_digits
+from sklearn.datasets import load_digits
+from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from csovo_classifier import CSOVO_Classifier
+from loadData import load_zoo_data,load_yeast_data,load_vowel_data,load_glass_data,load_vehicle_data
 import os.path
 
 def argmin(i,j,Ci,Cj):
@@ -60,10 +63,51 @@ def costToWeight(X,Y,C):
 
 if __name__=="__main__":
 
-	
-	dataset=load_digits()
+	print "\nChoose a dataset which you want to use:\n 1: Digits\n 2: Iris\n 3: breast-cancer\n 4: Vowels\n 5: Vehicles\n 6: Glass\n 7: Yeast\n 8: Zoo\n\n Enter your option: \n"
+	dataset_option = input()
+	if dataset_option == 1:
+		dataset = load_digits()
+		target = dataset.target
+		data = dataset.data
+		classes = dataset.target_names
+		K = len(classes)
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 2:
+		dataset = load_iris()
+		target = dataset.target
+		data = dataset.data
+		classes = dataset.target_names
+		K = len(classes)
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 3:
+		dataset = load_breast_cancer()
+		target = dataset.target
+		data = dataset.data
+		classes = dataset.target_names
+		K = len(classes)
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 4:
+		data, target, classes = load_vowel_data('vowel-context.data')
+		K = len(classes.keys())
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 5:
+		data, target, classes = load_vehicle_data('vehicle.dat')
+		K = len(classes.keys())
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 6:
+		data, target, classes = load_glass_data('glass.data')
+		K = len(classes.keys())
+		temp = [target[i] for i in xrange(len(target))]
+	elif dataset_option == 7:
+		data, target, classes = load_yeast_data('yeast.data')
+		K = len(classes.keys())
+		temp = [target[i] for i in xrange(len(target))]
+	else:
+		data, target, classes = load_zoo_data('zoo.data')
+		K = len(classes.keys())
+		temp = [target[i] for i in xrange(len(target))]
 
-	print "Digits dataset loaded"
+	print "Dataset loaded"
 	
 	X_train, X_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.80, random_state=21)
 	

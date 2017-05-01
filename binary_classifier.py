@@ -1,4 +1,5 @@
 import numpy as np 
+from sklearn import svm
 from sklearn.model_selection import cross_val_score
 from simple_perceptron_classifier import Simple_Perceptron 
 from voted_perceptron_classifier import Voted_Perceptron 
@@ -22,12 +23,18 @@ class Binary_Classifier:
 		#Simple
 		bcf = Simple_Perceptron()
 		bcf.fit(input_vectors,class_labels,epochs=epoch,ndim=data_dim,weights=wts)
-		scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts,"ndim":data_dim,"epochs":epoch})
-		self.accuracy=scores.mean()
+		#scores = cross_val_score(estimator=bcf, X=input_vectors, y=class_labels, cv=kcv,scoring="accuracy",fit_params={"weights":wts,"ndim":data_dim,"epochs":epoch})
+		#self.accuracy=scores.mean()
 
 		#Kernel
-		# bcf=Kernel_Perceptron(kernel=gaussian_kernel,T=epoch )
-		# bcf.fit(input_vectors,labels,weights=wts,sigma=5.0)
+		#bcf=Kernel_Perceptron(kernel=gaussian_kernel,T=epoch )
+		#bcf.fit(input_vectors,labels,weights=wts,sigma=5.0)
+		
+		#SVM
+		#bcf = svm.SVC()
+		#bcf.fit(input_vectors,class_labels,sample_weight=wts)
+		
+
 		self.classes=classes
 		self.bcf=bcf
 

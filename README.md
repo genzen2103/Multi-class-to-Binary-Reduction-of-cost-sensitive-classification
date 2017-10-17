@@ -1,9 +1,18 @@
 Reduction of Cost Sensitive MultiClass Classification to One to One Binary Classification
 
+Problem Statement:
+Many real-world applications require varying costs for different types of mis-
+classification errors. Such a cost-sensitive classification setup can be very different from the
+regular classification one, especially in the multiclass case. Thus, traditional meta-algorithms
+for regular multiclass classification, such as the popular one-versus-one approach, may not
+always work well under the cost-sensitive classification setup. We extend the
+one-versus-one approach to the field of cost-sensitive classification. The extension is derived
+using a rigorous mathematical tool called the cost-transformation technique, and takes the
+original one-versus-one as a special case
+
 General description:
 
 This code is a Python implementation of one vs one binary classifiers.
-All the coding is done by the projectmates on their own. Dataset sources are properly given credits below.
 
 One vs one binary classifiers: 
 1. one vs one (OVO)
